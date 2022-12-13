@@ -4,6 +4,7 @@ export interface Env {
 
 // @ts-ignore
 import home from './home.html'
+import { makeBadge } from './utils'
 
 function handleHome() {
   return new Response(home, {
@@ -34,9 +35,9 @@ async function handleVisit(searchParams: URLSearchParams, env: Env) {
     value = parseInt(kvPage) + 1
     await env.DB.put(page, value + '')
   }
-  return new Response(JSON.stringify({ visits: value }), {
+  return new Response(makeBadge(value), {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'image/svg+xml;charset=utf-8',
     },
   })
 }
